@@ -1,0 +1,24 @@
+project id: toxic-comments-408311
+live on: https://txc-ikzwo6fbra-uc.a.run.app
+
+curl -X POST -H "Content-Type: application/json" -d "{""text"": ""I love you!""}" http://localhost:5000/filter
+
+
+use this one in your powershell or command prompt.
+
+curl -X POST -H "Content-Type: application/json" -d "{""text"": ""I love you!""}" https://txc-ikzwo6fbra-uc.a.run.app/filter
+curl -X POST -H "Content-Type: application/json" -d "{""text"": ""I want to make you happy!""}" https://txc-ikzwo6fbra-uc.a.run.app/filter
+
+
+steps that I followed for whole deplyoment.
+
+step1: docker build -t vrudit/txc:latest .
+step2: docker run -d -p 5000:5000 vrudit/txc: latest
+step3: docker tag vrudit/txc gcr.io/toxic-comments-408311/vrudit/txc
+            here, first "vrudit/txc" is image name, "toxic-comments-408311" is project id of gcp. "vrudit/txc" is again image name.
+
+step4: Enable container registry for that particular project
+step5: docker push gcr.io/toxic-comments-408311/vrudit/txc
+
+
+step6: Open cloud run, create new service. select docker image, let it execute. get the url.
